@@ -8,18 +8,28 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController,UITableViewDataSource,UITableViewDelegate  {
+    let toDoList: [Int:String] = [0:"Shower", 1:"Eat", 2:"Sleep", 3:"Coding"]
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        tableView.delegate=self
+        tableView.dataSource=self
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return toDoList.count ?? 0
+    
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCell", for: indexPath)
+            cell.textLabel?.text = toDoList[indexPath.row]
+            return cell
+     }
 
+ 
 
 }
 
